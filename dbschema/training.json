@@ -1,0 +1,64 @@
+{
+    "_id" : ObjectId("593babf1032b30829b22e00a"),
+    "name" : "HTML, CSS, and Javascript for Web Developers",
+    "description" : "Welcome to HTML, CSS, and Javascript for Web Developers! You’re joining thousands of learners currently enrolled in the course. I'm excited to have you in the class and look forward to your contributions to the learning community.",
+    "lecturer" : "todo: Yaakov Chaikin [this should be a reference to trainer record]",
+    "lecturer_agency" : "Johns Hopkins University",
+    "icon" : "todo: this should be a image type",
+    "schedule" : [ 
+        {
+            "name" : "week1",
+            "video" : 60,
+            "reading" : 40,
+            "practice" : 20,
+            "due" : ISODate("2017-03-19T23:39:20.201Z"),
+            "grade" : 0
+        }, 
+        {
+            "name" : "week2",
+            "video" : 60,
+            "reading" : 40,
+            "practice" : 20,
+            "due" : ISODate("2017-03-29T23:49:20.201Z"),
+            "grade" : 0
+        }, 
+        {
+            "name" : "week3",
+            "video" : 60,
+            "reading" : 40,
+            "practice" : 20,
+            "due" : ISODate("2017-04-06T00:25:20.201Z"),
+            "grade" : 0
+        }, 
+        {
+            "name" : "week4",
+            "video" : 60,
+            "reading" : 40,
+            "practice" : 20,
+            "due" : ISODate("2017-04-13T00:32:20.201Z"),
+            "grade" : 0
+        }, 
+        {
+            "name" : "week5",
+            "video" : 60,
+            "reading" : 40,
+            "practice" : 20,
+            "due" : ISODate("2017-04-20T00:39:20.201Z"),
+            "grade" : 0
+        }
+    ],
+    "forum" : "https://www.coursera.org/learn/html-css-javascript-for-web-developers/discussions",
+    "resources" : [ 
+        "https://developer.mozilla.org/en-US/docs/Web/JavaScript", 
+        "https://www.w3schools.com/css/"
+    ],
+    "tag" : [ 
+        "html", 
+        "css", 
+        "javascript", 
+        "web development"
+    ],
+    "language" : [ 
+        "english"
+    ]
+}
