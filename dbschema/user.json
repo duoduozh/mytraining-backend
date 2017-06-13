@@ -12,6 +12,7 @@
             "description": "Welcome to HTML, CSS, and Javascript for Web Developers! You’re joining thousands of learners currently enrolled in the course. I'm excited to have you in the class and look forward to your contributions to the learning community.",
             "lecturer": "todo: Yaakov Chaikin [this should be a reference to trainer record]",
             "lecturer_agency": "Johns Hopkins University",
+            "rating": 0,
             "schedule": [
                 {
                     "name": "week1",
