@@ -1,6 +1,9 @@
+/*
+    Object User
+*/
 {
     "_id": ObjectId("593e6044536e7c6309b4c2d3"),
-    "fullname": "carson, zhang",
+    "full_name": "carson, zhang",
     "email": "myzn007@hotmail.com",
     "timezone": "ShangHai",
     "language": "English",
@@ -9,52 +12,136 @@
         {
             "courseId": ObjectId("593e5b2d536e7c6309b4c273"),
             "name": "HTML, CSS, and Javascript for Web Developers",
-            "description": "Welcome to HTML, CSS, and Javascript for Web Developers! You’re joining thousands of learners currently enrolled in the course. I'm excited to have you in the class and look forward to your contributions to the learning community.",
-            "lecturer": "todo: Yaakov Chaikin [this should be a reference to trainer record]",
-            "lecturer_agency": "Johns Hopkins University",
-            "rating": 0,
-            "schedule": [
+            "overview": "Welcome to HTML, CSS, and Javascript for Web Developers! You’re joining thousands of learners currently enrolled in the course. I'm excited to have you in the class and look forward to your contributions to the learning community.",
+            "lecturer": [
                 {
-                    "name": "week1",
-                    "video": 60,
-                    "reading": 40,
-                    "practice": 20,
-                    "due": ISODate("2017-03-19T23:39:20.201Z"),
-                    "grade": 0
-                },
-                {
-                    "name": "week2",
-                    "video": 60,
-                    "reading": 40,
-                    "practice": 20,
-                    "due": ISODate("2017-03-29T23:49:20.201Z"),
-                    "grade": 0
-                },
-                {
-                    "name": "week3",
-                    "video": 60,
-                    "reading": 40,
-                    "practice": 20,
-                    "due": ISODate("2017-04-06T00:25:20.201Z"),
-                    "grade": 0
-                },
-                {
-                    "name": "week4",
-                    "video": 60,
-                    "reading": 40,
-                    "practice": 20,
-                    "due": ISODate("2017-04-13T00:32:20.201Z"),
-                    "grade": 0
-                },
-                {
-                    "name": "week5",
-                    "video": 60,
-                    "reading": 40,
-                    "practice": 20,
-                    "due": ISODate("2017-04-20T00:39:20.201Z"),
-                    "grade": 0
+                    "name": "Carson, Zhang",
+                    "description": "Software Engineer, 10+ years experience",
+                    "orgianization": "DXC, previously HPE, and previously previously HP"
                 }
-            ]
+            ],
+            "my_rating": 4.5,
+            "state": "not start",
+            "syllabus": [
+                {
+                    "week": "week1",
+                    "module": "module1",
+                    "video": 60,
+                    "video_progress": 0,
+                    "reading": 40,
+                    "reading_progress": 0,
+                    "practice": 20,
+                    "practice_progress": 0,
+                    "duration": 5,
+                    "test": [
+                        {
+                            "type": "quiz",
+                            "grade": 0,
+                            "due": ISODate("2017-03-19T23:39:20.201Z")
+                        }
+                    ]
+                },
+                {
+                    "week": "week2",
+                    "module": "module2",
+                    "video": 60,
+                    "video_progress": 0,
+                    "reading": 40,
+                    "reading_progress": 0,
+                    "practice": 20,
+                    "practice_progress": 0,
+                    "duration": 5,
+                    "test": [
+                        {
+                            "type": "Assignment",
+                            "grade": 0,
+                            "due": ISODate("2017-03-26T23:49:20.201Z")
+                        },
+                        {
+                            "type": "Review",
+                            "grade": 0,
+                            "due": ISODate("2017-03-29T23:49:20.201Z")
+                        }
+                    ]
+                },
+                {
+                    "week": "week3",
+                    "module": "module3",
+                    "video": 60,
+                    "video_progress": 0,
+                    "reading": 40,
+                    "reading_progress": 0,
+                    "practice": 20,
+                    "practice_progress": 0,
+                    "duration": 5,
+                    "test": [
+                        {
+                            "type": "Assignment",
+                            "grade": 0,
+                            "due": ISODate("2017-04-02T00:25:20.201Z")
+                        },
+                        {
+                            "type": "Review",
+                            "grade": 0,
+                            "due": ISODate("2017-04-05T00:25:20.201Z")
+                        }
+                    ]
+                },
+                {
+                    "week": "week4",
+                    "module": "module4",
+                    "video": 60,
+                    "video_progress": 0,
+                    "reading": 40,
+                    "reading_progress": 0,
+                    "practice": 20,
+                    "practice_progress": 0,
+                    "duration": 5,
+                    "test": [
+                        {
+                            "type": "Assignment",
+                            "grade": 0,
+                            "due": ISODate("2017-04-09T00:25:20.201Z")
+                        },
+                        {
+                            "type": "Review",
+                            "grade": 0,
+                            "due": ISODate("2017-04-12T00:25:20.201Z")
+                        }
+                    ]
+                },
+                {
+                    "week": "week5",
+                    "module": "module5",
+                    "video": 60,
+                    "video_progress": 0,
+                    "reading": 40,
+                    "reading_progress": 0,
+                    "practice": 20,
+                    "practice_progress": 0,
+                    "duration": 5,
+                    "test": [
+                        {
+                            "type": "Assignment",
+                            "grade": 0,
+                            "due": ISODate("2017-04-16T00:39:20.201Z")
+                        },
+                        {
+                            "type": "Review",
+                            "grade": 0,
+                            "due": ISODate("2017-04-19T00:39:20.201Z")
+                        }
+                    ]
+                }
+            ],
+            "enable_email": true
+        }
+    ],
+    "recent_viewed_course": [
+        {
+            "courseId": "this is the primary key",
+            "name": "Introduction to Big Data",
+            "icon": "http://via.placeholder.com/350x150"
         }
     ]
 }

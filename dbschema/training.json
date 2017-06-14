@@ -1,9 +1,82 @@
+/*
+    Object Course
+*/
 {
-    "_id": ObjectId("593babf1032b30829b22e00a"),
+    "_id": ObjectId("593e5b2d536e7c6309b4c273"),
     "name": "HTML, CSS, and Javascript for Web Developers",
-    "description": "Welcome to HTML, CSS, and Javascript for Web Developers! You’re joining thousands of learners currently enrolled in the course. I'm excited to have you in the class and look forward to your contributions to the learning community.",
+    "overview": "Welcome to HTML, CSS, and Javascript for Web Developers! You’re joining thousands of learners currently enrolled in the course. I'm excited to have you in the class and look forward to your contributions to the learning community.",
     "lecturer": [
-        "Carson, Zhang"
+        {
+            "name": "Carson, Zhang",
+            "description": "Software Engineer, 10+ years experience",
+            "orgianization": "DXC, previously HPE, and previously previously HP"
+        }
+    ],
+    "basic_info": "Course 4 of 6 in the Ruby on Rails Web Development Specialization.",
+    "commitment": "5 weeks of study, 4-6 hours/week",
+    "language": [
+        "english"
+    ],
+    "how_to_pass": "Pass all graded assignments to complete the course.",
+    "average_rating": 4.5,
+    "icon": "http://via.placeholder.com/350x150",
+    "specification_info": "todo",
+    "syllabus": [
+        {
+            "week": "1",
+            "module": "module1",
+            "title": "Introduction to HTML5",
+            "description": "In this module we will learn the basics of HTML5. We'll start with instructional videos on how to set up your development environment, go over HTML5 basics like valid document structure, which elements can be included inside other elements and which can not, discuss the meaning and usefulness of HTML5 semantic tags, and go over essential HTML5 tags.",
+            "video": 60,
+            "reading": 40,
+            "practice": 20,
+            "duration": 7,
+            "grade": "quiz"
+        },
+        {
+            "week": "2",
+            "module": "module2",
+            "title": "Introduction to CSS3",
+            "description": "A lot of people 'tinker' with CSS. In this module, we'll take you from the very basics of CSS3 to some fairly advanced concepts like floating and CSS rule conflict resolution. We'll go over the 'box model', background property, etc. We'll finish off the module with learning about Responsive Design using our own CSS code as well as start introducing Twitter Bootstrap with its essential Grid System.",
+            "video": 60,
+            "reading": 40,
+            "practice": 20,
+            "duration": 7,
+            "grade": "assignment"
+        },
+        {
+            "week": "3",
+            "module": "module3",
+            "title": "Coding the Static Restaurant Site",
+            "description": "Ready for some REAL fun? This module is it! We'll go over some basics of interacting with a client when managing a web site project and then go visit a real client at their place of business (a Chinese restaurant), help the owner figure out what she wants in a site, and get acquainted with the restaurant in general. We'll spend the rest of the module building a real web site for this business from scratch and you'll get to sit next to me and watch as the site comes together.",
+            "video": 60,
+            "reading": 40,
+            "practice": 20,
+            "duration": 7,
+            "grade": "assignment"
+        },
+        {
+            "week": "4",
+            "module": "module4",
+            "title": "Introduction to Javascript",
+            "description": "What fun would a web site be if there was no functionality to it? In this module, we are going to concentrate on learning the fundamentals of the Javascript language. A lot of even seasoned developers “tinker” with Javascript without really understanding how the language works. That leads to viewing the language as more of a nuisance instead of a powerful tool. That is why we are going to concentrate not only on the “how” but also on the “why”, so you are empowered by the Javascript language features, not confused by them. We’ll cover just about everything - from common language constructs and Javascript types to objects, functions, arrays, closures, and scope isolation.",
+            "video": 60,
+            "reading": 40,
+            "practice": 20,
+            "duration": 7,
+            "grade": "assignment"
+        },
+        {
+            "week": "5",
+            "module": "module5",
+            "title": "Using Javascript to Build Web Applications",
+            "description": "In this module, we are going to take all those newly learned Javascript language skills and learn how to utilize them within the context of a web page. We’ll start by learning how to properly manipulate the web page components using the Javascript Document Object Model API. We will then move on to learning one of the most popular ways of serving up data to a web site - Ajax. We'll learn about the protocol that the language of the web speaks in (HTTP), how to set up and handle Ajax requests and responses, as well as how to process JSON data. We'll finish the module by connecting our restaurant web site from Module 3 to a real backend service that will allow us to pull the data for the restaurant menu dynamically from the server without having to reload the entire page.",
+            "video": 60,
+            "reading": 40,
+            "practice": 20,
+            "duration": 7,
+            "grade": "assignment"
+        }
     ],
     "FAQ": [
         {
@@ -13,50 +86,6 @@
         {
             "question": "What will I get if I pay for this course?",
             "answer": "If you pay for this course, you will have access to all of the features and content you need to earn a Course Certificate. If you complete the course successfully, your electronic Certificate will be added to your Accomplishments page - from there, you can print your Certificate or add it to your LinkedIn profile. Note that the Course Certificate does not represent official academic credit from the partner institution offering the course."
-        }
-    ],
-    "lecturer_agency": "Johns Hopkins University",
-    "icon": "todo: this should be a image type",
-    "syllabus": [
-        {
-            "name": "week1",
-            "video": 60,
-            "reading": 40,
-            "practice": 20,
-            "duration": 5,
-            "grade": 0
-        },
-        {
-            "name": "week2",
-            "video": 60,
-            "reading": 40,
-            "practice": 20,
-            "duration": 5,
-            "grade": 0
-        },
-        {
-            "name": "week3",
-            "video": 60,
-            "reading": 40,
-            "practice": 20,
-            "duration": 5,
-            "grade": 0
-        },
-        {
-            "name": "week4",
-            "video": 60,
-            "reading": 40,
-            "practice": 20,
-            "duration": 5,
-            "grade": 0
-        },
-        {
-            "name": "week5",
-            "video": 60,
-            "reading": 40,
-            "practice": 20,
-            "duration": 5,
-            "grade": 0
         }
     ],
     "forum": "https://www.coursera.org/learn/html-css-javascript-for-web-developers/discussions",
@@ -69,8 +98,5 @@
         "css",
         "javascript",
         "web development"
-    ],
-    "language": [
-        "english"
     ]
 }
