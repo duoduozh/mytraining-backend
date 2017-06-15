@@ -16,7 +16,28 @@ type Training struct {
     Icon            string              `bson:"icon"`
     Specification   string              `bson:"specification_info"`
     Forum           string              `bson:"forum"`
+    Language        []string            `bson:"language"`
 }
+
+type Lecture struct {
+    Id              bson.ObjectId       `bson:"_id,omitempty"`
+    Name            string              `bson:"name"`
+    Organization    string              `bson:"organization"`
+}
+
+type Module struct {
+    Id              bson.ObjectId       `bson:"_id,omitempty"`
+    Week            int                 `bson:"week"`
+    Module          string              `bson:"module"`
+    Title           string              `bson:"title"`
+    Description     string              `bson:"description"`
+    Video           int                 `bson:"video"`
+    Reading         int                 `bson:"reading"`
+    Practice        int                 `bson:"practice"`
+    Duration        int                 `bson:"duration"`
+    Grade           int                 `bson:"grade"`
+}
+
 
 func main(){
 
