@@ -1,8 +1,9 @@
 package main
 
 import (
-    "fmt",
-    "log"
+    "fmt"
+    "gopkg.in/mgo.v2"
+    "gopkg.in/mgo.v2/bson"
 )
 
 type Training struct {
@@ -38,8 +39,14 @@ type Module struct {
     Grade           int                 `bson:"grade"`
 }
 
-
 func main(){
+    session, err := mgo.Dial("127.0.0.1:32768")
+    if err != nil {
+        panic(err)
+    } else {
+        fmt.Printf("connect success\n")
+    }
+
+    defer session.Close()
 
 }
-
