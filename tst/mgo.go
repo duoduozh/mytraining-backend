@@ -40,7 +40,8 @@ type Module struct {
 }
 
 func main(){
-    session, err := mgo.Dial("127.0.0.1:32768")
+    session, err := mgo.Dial("127.0.0.1:27017")
+    
     if err != nil {
         panic(err)
     } else {
