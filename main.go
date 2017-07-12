@@ -4,42 +4,9 @@ import (
 	"fmt"
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
-	"models"
+	"mytraining_backend/models"
 	"time"
 )
-
-type Training struct {
-	Id            bson.ObjectId `bson:"_id,omitempty"`
-	Name          string        `bson:"name"`
-	Overview      string        `bson:"overview"`
-	BasicInfo     string        `bson:"basic_info"`
-	Commitment    string        `bson:"commitment"`
-	HowToPass     string        `bson:"how_to_pass"`
-	AverageRating int           `bson:"average_rating"`
-	Icon          string        `bson:"icon"`
-	Specification string        `bson:"specification_info"`
-	Forum         string        `bson:"forum"`
-	Language      []string      `bson:"language"`
-}
-
-type Lecture struct {
-	Id           bson.ObjectId `bson:"_id,omitempty"`
-	Name         string        `bson:"name"`
-	Organization string        `bson:"organization"`
-}
-
-type Module struct {
-	Id          bson.ObjectId `bson:"_id,omitempty"`
-	Week        int           `bson:"week"`
-	Module      string        `bson:"module"`
-	Title       string        `bson:"title"`
-	Description string        `bson:"description"`
-	Video       int           `bson:"video"`
-	Reading     int           `bson:"reading"`
-	Practice    int           `bson:"practice"`
-	Duration    int           `bson:"duration"`
-	Grade       int           `bson:"grade"`
-}
 
 var (
 	IsDrop = true
@@ -118,7 +85,7 @@ func main() {
 
 	// Update
 	colQuerier := bson.M{"name": "Ale"}
-	change := bson.M{"$set": bson.M{"phone": "+86 99 8888 7776", "timestamp": time.Now()}}
+	change := bson.M{"$set": bson.M{"phone": "+86 99 8888 7774", "timestamp": time.Now()}}
 	err = c.Update(colQuerier, change)
 	if err != nil {
 		panic(err)
