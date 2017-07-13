@@ -4,37 +4,30 @@ import (
 	"fmt"
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
+	"mytraining_backend/config"
 	"mytraining_backend/models"
+	"mytraining_backend/util"
 	"time"
 )
 
-var (
-	IsDrop = true
-)
-
 func main() {
-	session, err := mgo.Dial("127.0.0.1")
-
+	// Initialize Environment
+	config.LoadConfig()
+	err := util.Init()
 	if err != nil {
 		panic(err)
-	} else {
-		fmt.Printf("connect success\n")
 	}
+	defer util.Close()
 
+	session, err := util.GetSession()
+	if err != nil {
+		fmt.Println(err)
+		panic(nil)
+	}
 	defer session.Close()
 
-	session.SetMode(mgo.Monotonic, true)
-
-	// Drop DB
-	if IsDrop {
-		err = session.DB("test").DropDatabase()
-		if err != nil {
-			panic(err)
-		}
-	}
-
 	// Collection People
-	c := session.DB("test").C("people")
+	c := session.DB("").C("people")
 
 	// Index
 	index := mgo.Index{
@@ -44,7 +37,6 @@ func main() {
 		Background: true,
 		Sparse:     true,
 	}
-
 	err = c.EnsureIndex(index)
 	if err != nil {
 		panic(err)
@@ -85,7 +77,7 @@ func main() {
 
 	// Update
 	colQuerier := bson.M{"name": "Ale"}
-	change := bson.M{"$set": bson.M{"phone": "+86 99 8888 7774", "timestamp": time.Now()}}
+	change := bson.M{"$set": bson.M{"phone": "+86 99 8888 7773", "timestamp": time.Now()}}
 	err = c.Update(colQuerier, change)
 	if err != nil {
 		panic(err)
@@ -98,5 +90,4 @@ func main() {
 		panic(err)
 	}
 	fmt.Println("Results All: ", resultPersonList)
-
 }

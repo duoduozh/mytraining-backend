@@ -4,13 +4,10 @@ import (
 	"fmt"
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
-	"models"
+	"mytraining_backend/models"
 	"time"
 )
 
-type trainingdao struct {
-}
-
-func (t *trainingdao) CreateTraining(training model.training) error {
+func CreateTraining(trainingList ...model.training) error {
 	//	session := global.
 }

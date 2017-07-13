@@ -7,8 +7,8 @@ import (
 
 type Person struct {
 	ID        bson.ObjectId `bson:"_id,omitempty"`
-	Name      string
-	Phone     string
-	Timestamp time.Time
-	FAQList   []FAQ `bson:"faqlist"`
+	Name      string        `bson:"name"`
+	Phone     string        `bson:"phone"`
+	Timestamp time.Time     `bson:"timestamp"`
+	FAQList   []FAQ         `bson:"faqlist"`
 }
