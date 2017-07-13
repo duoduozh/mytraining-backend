@@ -97,6 +97,24 @@ func main() {
 
 	training.SyllabusList = append(training.SyllabusList, syllabus1, syllabus2, syllabus3, syllabus4, syllabus5)
 
+	training.FAQList = []*models.FAQ{
+		&models.FAQ{
+			Question: `When will I have access to the lectures and assignments?`,
+			Answer:   `Once you enroll for a Certificate, you’ll have access to all videos, quizzes, and programming assignments (if applicable). Peer review assignments can only be submitted and reviewed once your session has begun. If you choose to explore the cours    e without subscribing, you may not be able to access certain assignments.`,
+		},
+		&models.FAQ{
+			Question: `What will I get if I pay for this course?`,
+			Answer:   `If you pay for this course, you will have access to all of the features and content you need to earn a Course Certificate. If you complete the course successfully, your electronic Certificate will be added to your Accomplishments page - from the    re, you can print your Certificate or add it to your LinkedIn profile. Note that the Course Certificate does not represent official academic credit from the partner institution offering the course.`,
+		},
+	}
+
+	training.Forum = `https://www.coursera.org/learn/html-css-javascript-for-web-developers/discussions`
+	training.ResourceList = []string{
+		`https://developer.mozilla.org/en-US/docs/Web/JavaScript`,
+		`https://www.w3schools.com/css/`,
+	}
+	training.TagList = []string{"html", "css", "javascript", "web"}
+
 	resultstring, _ := json.Marshal(training)
 	fmt.Printf("training is %v\n\n\n\n\n", string(resultstring))
 

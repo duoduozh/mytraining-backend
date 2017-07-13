@@ -17,7 +17,7 @@ type Training struct {
 	Icon              string        `bson:"icon"`
 	SpecificationInfo string        `bson:"specification_info"`
 	SyllabusList      []*Syllabus   `bson:"syllabus_list"`
-	FAQList           []FAQ         `bson:"FAQ_list"`
+	FAQList           []*FAQ        `bson:"FAQ_list"`
 	Forum             string        `bson:"forum"`
 	ResourceList      []string      `bson:"resource_list"`
 	TagList           []string      `bson:"tag_list"`
