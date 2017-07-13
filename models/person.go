@@ -10,5 +10,5 @@ type Person struct {
 	Name      string        `bson:"name"`
 	Phone     string        `bson:"phone"`
 	Timestamp time.Time     `bson:"timestamp"`
-	FAQList   []FAQ         `bson:"faqlist"`
+	FAQList   []*FAQ        `bson:"faqlist"`
 }

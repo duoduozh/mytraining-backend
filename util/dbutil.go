@@ -11,7 +11,7 @@ import (
 var dropDatabase bool = true
 var dbsession *mgo.Session
 
-func Init() error {
+func InitDB() error {
 	mongoDBDialInfo := &mgo.DialInfo{
 		Addrs:    []string{config.DatabaseURL},
 		Timeout:  60 * time.Second,
@@ -35,14 +35,15 @@ func Init() error {
 		//TODO: log.Fatal("Cannot Dial Mongo: ", err)
 		panic(err)
 	} else {
-		fmt.Printf("connect to database: %v SUCCESS", config.DatabaseURL)
+		fmt.Printf("connect to database: %v SUCCESS\n", config.DatabaseURL)
 	}
 
 	dbsession.SetMode(mgo.Monotonic, true)
+
 	return nil
 }
 
-func Close() error {
+func CloseDB() error {
 	if dbsession != nil {
 		dbsession.Close()
 		return nil
@@ -53,7 +54,7 @@ func Close() error {
 	}
 }
 
-func GetSession() (*mgo.Session, error) {
+func GetDBSession() (*mgo.Session, error) {
 	if dbsession == nil {
 		return dbsession, errors.New("The global mgo session is nil, please initialize the global mgo session before access it")
 	}

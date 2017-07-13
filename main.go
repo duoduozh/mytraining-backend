@@ -1,93 +1,108 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
-	"gopkg.in/mgo.v2"
-	"gopkg.in/mgo.v2/bson"
 	"mytraining_backend/config"
+	"mytraining_backend/dao"
 	"mytraining_backend/models"
 	"mytraining_backend/util"
-	"time"
 )
 
 func main() {
 	// Initialize Environment
 	config.LoadConfig()
-	err := util.Init()
+	err := util.InitDB()
 	if err != nil {
 		panic(err)
 	}
-	defer util.Close()
+	defer util.CloseDB()
 
-	session, err := util.GetSession()
+	var training models.Training
+	training.Name = `HTML, CSS, and Javascript for Web Developers`
+	training.Overview = `Welcome to HTML, CSS, and Javascript for Web Developers! You're joining thousands of learners currently enrolled in the course. I'm excited to have you in the class and look forward to your contributions to the learning community.`
+	lecture := &models.Lecture{
+		Name:         "Carson, Zhang",
+		Description:  "Software Engineer, 10+ years experience",
+		Organization: "DXC, previously HPE, and previously previously HP",
+	}
+	training.LectureList = append(training.LectureList, lecture)
+	training.BasicInfo = `Course 4 of 6 in the Ruby on Rails Web Development Specialization.`
+	training.Commitment = `5 weeks of study, 4-6 hours/week`
+	training.Language = append(training.Language, "English")
+	training.HowToPass = `Pass all graded assignments to complete the course.`
+	training.AverageRating = 4.5
+	training.Icon = `http://via.placeholder.com/350x150`
+	training.SpecificationInfo = `TODO`
+
+	syllabus1 := &models.Syllabus{
+		Week:             1,
+		Module:           `module1`,
+		Title:            `Introduction to HTML5`,
+		Description:      `In this module we will learn the basics of HTML5. We'll start with instructional videos on how to set up your development environment, go over HTML5 basics like valid document structure, which elements can be included inside other elements and which can not, discuss the meaning and usefulness of HTML5 semantic tags, and go over essential HTML5 tags.`,
+		VideoDuration:    60,
+		ReadingDuration:  40,
+		PracticeDuration: 20,
+		Duration:         7,
+		Grade:            `quiz`,
+	}
+
+	syllabus2 := &models.Syllabus{
+		Week:             2,
+		Module:           `module2`,
+		Title:            `Introduction to HTML5`,
+		Description:      `In this module we will learn the basics of HTML5. We'll start with instructional videos on how to set up your development environment, go over HTML5 basics like valid document structure, which elements can be included inside other elements and which can not, discuss the meaning and usefulness of HTML5 semantic tags, and go over essential HTML5 tags.`,
+		VideoDuration:    60,
+		ReadingDuration:  40,
+		PracticeDuration: 20,
+		Duration:         7,
+		Grade:            `assignment`,
+	}
+
+	syllabus3 := &models.Syllabus{
+		Week:             3,
+		Module:           `module3`,
+		Title:            `Introduction to HTML5`,
+		Description:      `In this module we will learn the basics of HTML5. We'll start with instructional videos on how to set up your development environment, go over HTML5 basics like valid document structure, which elements can be included inside other elements and which can not, discuss the meaning and usefulness of HTML5 semantic tags, and go over essential HTML5 tags.`,
+		VideoDuration:    60,
+		ReadingDuration:  40,
+		PracticeDuration: 20,
+		Duration:         7,
+		Grade:            `assignment`,
+	}
+
+	syllabus4 := &models.Syllabus{
+		Week:             4,
+		Module:           `module4`,
+		Title:            `Introduction to HTML5`,
+		Description:      `In this module we will learn the basics of HTML5. We'll start with instructional videos on how to set up your development environment, go over HTML5 basics like valid document structure, which elements can be included inside other elements and which can not, discuss the meaning and usefulness of HTML5 semantic tags, and go over essential HTML5 tags.`,
+		VideoDuration:    60,
+		ReadingDuration:  40,
+		PracticeDuration: 20,
+		Duration:         7,
+		Grade:            `assignment`,
+	}
+
+	syllabus5 := &models.Syllabus{
+		Week:             5,
+		Module:           `module5`,
+		Title:            `Introduction to HTML5`,
+		Description:      `In this module we will learn the basics of HTML5. We'll start with instructional videos on how to set up your development environment, go over HTML5 basics like valid document structure, which elements can be included inside other elements and which can not, discuss the meaning and usefulness of HTML5 semantic tags, and go over essential HTML5 tags.`,
+		VideoDuration:    60,
+		ReadingDuration:  40,
+		PracticeDuration: 20,
+		Duration:         7,
+		Grade:            `assignment`,
+	}
+
+	training.SyllabusList = append(training.SyllabusList, syllabus1, syllabus2, syllabus3, syllabus4, syllabus5)
+
+	resultstring, _ := json.Marshal(training)
+	fmt.Printf("training is %v\n\n\n\n\n", string(resultstring))
+
+	err = dao.CreateTraining()
 	if err != nil {
 		fmt.Println(err)
-		panic(nil)
-	}
-	defer session.Close()
-
-	// Collection People
-	c := session.DB("").C("people")
-
-	// Index
-	index := mgo.Index{
-		Key:        []string{"name", "phone"},
-		Unique:     true,
-		DropDups:   true,
-		Background: true,
-		Sparse:     true,
-	}
-	err = c.EnsureIndex(index)
-	if err != nil {
 		panic(err)
 	}
-
-	person1 := models.Person{
-		Name:      "Ale",
-		Phone:     "+55 53 1234 4321",
-		Timestamp: time.Now(),
-		FAQList: []models.FAQ{
-			models.FAQ{Question: "q1", Answer: "a1"},
-			models.FAQ{Question: "q2", Answer: "a2"},
-		},
-	}
-	// Insert Datas
-	err = c.Insert(&person1,
-		&models.Person{Name: "Cla", Phone: "+66 33 1234 5678", Timestamp: time.Now()})
-
-	if err != nil {
-		panic(err)
-	}
-
-	// Query One
-	result := models.Person{}
-	err = c.Find(bson.M{"name": "Ale"}).Select(bson.M{"phone": 0}).One(&result)
-	if err != nil {
-		panic(err)
-	}
-	fmt.Println("Result Person", result)
-
-	// Query All
-	var resultPersonList []models.Person
-	err = c.Find(bson.M{"name": "Ale"}).Sort("-timestamp").All(&resultPersonList)
-	if err != nil {
-		panic(err)
-	}
-	fmt.Println("Result Person List", resultPersonList)
-
-	// Update
-	colQuerier := bson.M{"name": "Ale"}
-	change := bson.M{"$set": bson.M{"phone": "+86 99 8888 7773", "timestamp": time.Now()}}
-	err = c.Update(colQuerier, change)
-	if err != nil {
-		panic(err)
-	}
-
-	// Query All
-	err = c.Find(bson.M{"name": "Ale"}).Sort("-timestamp").All(&resultPersonList)
-
-	if err != nil {
-		panic(err)
-	}
-	fmt.Println("Results All: ", resultPersonList)
 }

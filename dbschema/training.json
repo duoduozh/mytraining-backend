@@ -9,7 +9,7 @@
         {
             "name": "Carson, Zhang",
             "description": "Software Engineer, 10+ years experience",
-            "orgianization": "DXC, previously HPE, and previously previously HP"
+            "organization": "DXC, previously HPE, and previously previously HP"
         }
     ],
     "basic_info": "Course 4 of 6 in the Ruby on Rails Web Development Specialization.",
@@ -27,9 +27,9 @@
             "module": "module1",
             "title": "Introduction to HTML5",
             "description": "In this module we will learn the basics of HTML5. We'll start with instructional videos on how to set up your development environment, go over HTML5 basics like valid document structure, which elements can be included inside other elements and which can not, discuss the meaning and usefulness of HTML5 semantic tags, and go over essential HTML5 tags.",
-            "video": 60,
-            "reading": 40,
-            "practice": 20,
+            "videoDuration": 60,
+            "readingDuration": 40,
+            "practiceDuration": 20,
             "duration": 7,
             "grade": "quiz"
         },
