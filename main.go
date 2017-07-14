@@ -100,7 +100,7 @@ func main() {
 	training.FAQList = []*models.FAQ{
 		&models.FAQ{
 			Question: `When will I have access to the lectures and assignments?`,
-			Answer:   `Once you enroll for a Certificate, you’ll have access to all videos, quizzes, and programming assignments (if applicable). Peer review assignments can only be submitted and reviewed once your session has begun. If you choose to explore the cours    e without subscribing, you may not be able to access certain assignments.`,
+			Answer:   `Once you enroll for a Certificate, you'll have access to all videos, quizzes, and programming assignments (if applicable). Peer review assignments can only be submitted and reviewed once your session has begun. If you choose to explore the cours    e without subscribing, you may not be able to access certain assignments.`,
 		},
 		&models.FAQ{
 			Question: `What will I get if I pay for this course?`,
@@ -115,12 +115,22 @@ func main() {
 	}
 	training.TagList = []string{"html", "css", "javascript", "web"}
 
-	resultstring, _ := json.Marshal(training)
-	fmt.Printf("training is %v\n\n\n\n\n", string(resultstring))
+	//resultstring, _ := json.Marshal(training)
+	//fmt.Printf("training is %v\n\n\n\n\n", string(resultstring))
 
-	err = dao.CreateTraining()
+	err = dao.CreateTraining(training)
 	if err != nil {
 		fmt.Println(err)
 		panic(err)
 	}
+
+	var trainingList []models.Training
+	trainingList, err = dao.FindTrainingByTag("html")
+	if err != nil {
+		fmt.Println(err)
+		panic(err)
+	}
+
+	byteTrainingList, _ := json.Marshal(trainingList)
+	fmt.Printf("FindTrainingByTag result is: %v\n", string(byteTrainingList))
 }
