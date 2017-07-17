@@ -9,7 +9,7 @@ import (
 	"mytraining_backend/util"
 )
 
-func main() {
+func initializeData() {
 	// Initialize Environment
 	config.LoadConfig()
 	err := util.InitDB()
@@ -123,9 +123,21 @@ func main() {
 		fmt.Println(err)
 		panic(err)
 	}
+}
+
+func main() {
+	// Initialize Environment
+	config.LoadConfig()
+	err := util.InitDB()
+	if err != nil {
+		panic(err)
+	}
+	defer util.CloseDB()
+
+	initializeData()
 
 	var trainingList []models.Training
-	trainingList, err = dao.FindTrainingByTag("html")
+	trainingList, err = dao.FindTrainingByLanguage("english")
 	if err != nil {
 		fmt.Println(err)
 		panic(err)

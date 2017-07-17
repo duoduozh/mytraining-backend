@@ -67,6 +67,26 @@ func FindTrainingByTag(tag string) (trainingList []models.Training, err error) {
 	return trainingList, nil
 }
 
+func FindTrainingByLanguage(language string) (trainingList []models.Training, err error) {
+	if len(language) <= 0 {
+		language = "english"
+	}
+
+	session, err := util.GetDBSession()
+	if err != nil {
+		panic(err)
+	}
+	defer session.Close()
+
+	c := session.DB("").C("training")
+	err = c.Find(bson.M{"language": bson.M{"$regex": bson.RegEx{language, "i"}}}).All(&trainingList)
+	if err != nil {
+		panic(err)
+	}
+
+	return trainingList, nil
+}
+
 func DBOperationDemo() error {
 	session, err := util.GetDBSession()
 	if err != nil {
