@@ -44,7 +44,7 @@ func initializeData() {
 		ReadingDuration:  40,
 		PracticeDuration: 20,
 		Duration:         7,
-		Grade:            `quiz`,
+		Graded:           `quiz`,
 	}
 
 	syllabus2 := &models.Syllabus{
@@ -56,7 +56,7 @@ func initializeData() {
 		ReadingDuration:  40,
 		PracticeDuration: 20,
 		Duration:         7,
-		Grade:            `assignment`,
+		Graded:           `assignment`,
 	}
 
 	syllabus3 := &models.Syllabus{
@@ -68,7 +68,7 @@ func initializeData() {
 		ReadingDuration:  40,
 		PracticeDuration: 20,
 		Duration:         7,
-		Grade:            `assignment`,
+		Graded:           `assignment`,
 	}
 
 	syllabus4 := &models.Syllabus{
@@ -80,7 +80,7 @@ func initializeData() {
 		ReadingDuration:  40,
 		PracticeDuration: 20,
 		Duration:         7,
-		Grade:            `assignment`,
+		Graded:           `assignment`,
 	}
 
 	syllabus5 := &models.Syllabus{
@@ -92,7 +92,7 @@ func initializeData() {
 		ReadingDuration:  40,
 		PracticeDuration: 20,
 		Duration:         7,
-		Grade:            `assignment`,
+		Graded:           `assignment`,
 	}
 
 	training.SyllabusList = append(training.SyllabusList, syllabus1, syllabus2, syllabus3, syllabus4, syllabus5)
@@ -134,6 +134,7 @@ func main() {
 	}
 	defer util.CloseDB()
 
+	// Insert the training data, will be move to unit test file later.
 	initializeData()
 
 	var trainingList []models.Training

@@ -12,5 +12,5 @@ type Syllabus struct {
 	PracticeDuration int     `bson:"practiceDuartion"`
 	PracticeProgress float32 `bson:"practiceProgress,omitempty"`
 	Duration         int     `bson:"duration"`
-	Grade            string  `bson:"grade"`
+	Graded           string  `bson:"graded"`
 }
