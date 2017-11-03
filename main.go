@@ -133,10 +133,8 @@ func main() {
 		panic(err)
 	}
 	defer util.CloseDB()
-	fmt.Println("running line: 136")
 	// Insert the training data, will be move to unit test file later.
 	initializeData()
-	fmt.Println("running line: 139")
 	var trainingList []models.Training
 	trainingList, err = dao.FindTrainingByLanguage("english")
 	if err != nil {
@@ -144,6 +142,6 @@ func main() {
 		panic(err)
 	}
 
-	byteTrainingList, _ := json.Marshal(trainingList)
-	fmt.Printf("FindTrainingByTag result is: %v\n", string(byteTrainingList))
+	jsonTrainingListString, _ := json.Marshal(trainingList)
+	fmt.Printf("FindTrainingByLanguage result is: %v\n", string(jsonTrainingListString))
 }
