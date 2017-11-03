@@ -11,13 +11,13 @@ import (
 
 func initializeData() {
 	// Initialize Environment
-	config.LoadConfig()
-	err := util.InitDB()
-	if err != nil {
-		panic(err)
-	}
-	defer util.CloseDB()
-
+	//config.LoadConfig()
+	//err := util.InitDB()
+	//if err != nil {
+	//	panic(err)
+	//}
+	//defer util.CloseDB()
+	var err error
 	var training models.Training
 	training.Name = `HTML, CSS, and Javascript for Web Developers`
 	training.Overview = `Welcome to HTML, CSS, and Javascript for Web Developers! You're joining thousands of learners currently enrolled in the course. I'm excited to have you in the class and look forward to your contributions to the learning community.`
@@ -133,10 +133,10 @@ func main() {
 		panic(err)
 	}
 	defer util.CloseDB()
-
+	fmt.Println("running line: 136")
 	// Insert the training data, will be move to unit test file later.
 	initializeData()
-
+	fmt.Println("running line: 139")
 	var trainingList []models.Training
 	trainingList, err = dao.FindTrainingByLanguage("english")
 	if err != nil {
