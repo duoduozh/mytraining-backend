@@ -7,16 +7,10 @@ import (
 	"mytraining_backend/dao"
 	"mytraining_backend/models"
 	"mytraining_backend/util"
+	"time"
 )
 
-func initializeData() {
-	// Initialize Environment
-	//config.LoadConfig()
-	//err := util.InitDB()
-	//if err != nil {
-	//	panic(err)
-	//}
-	//defer util.CloseDB()
+func InitializeTraining() {
 	var err error
 	var training models.Training
 	training.Name = `HTML, CSS, and Javascript for Web Developers`
@@ -125,6 +119,31 @@ func initializeData() {
 	}
 }
 
+func InitializeUser() {
+	var err error
+	var user models.User
+	user.FullName = "Carson,Zhang"
+	user.Email = "myzn007@gmail.com"
+	user.Language = "chinese"
+	user.Password = "123456"
+	user.Birthday = time.Date(1983, time.April, 9, 0, 0, 0, 0, time.UTC)
+	user.RecentViewedCourseList = []string{}
+
+	//resultstring, _ := json.Marshal(training)
+	//fmt.Printf("training is %v\n\n\n\n\n", string(resultstring))
+
+	err = dao.CreateUser(user)
+	if err != nil {
+		fmt.Println(err)
+		panic(err)
+	}
+}
+
+func InitializeData() {
+	InitializeTraining()
+	InitializeUser()
+}
+
 func main() {
 	// Initialize Environment
 	config.LoadConfig()
@@ -134,14 +153,25 @@ func main() {
 	}
 	defer util.CloseDB()
 	// Insert the training data, will be move to unit test file later.
-	initializeData()
-	var trainingList []models.Training
-	trainingList, err = dao.FindTrainingByLanguage("english")
+	InitializeData()
+	//var trainingList []models.Training
+	//trainingList, err = dao.FindTrainingByLanguage("english")
+	//if err != nil {
+	//	fmt.Println(err)
+	//	panic(err)
+	//}
+	//jsonTrainingListString, _ := json.Marshal(trainingList)
+
+	var user *models.User
+	user, err = dao.FindUserByEmail("myzn007@gmail.com")
 	if err != nil {
 		fmt.Println(err)
 		panic(err)
 	}
-
-	jsonTrainingListString, _ := json.Marshal(trainingList)
-	fmt.Printf("FindTrainingByLanguage result is: %v\n", string(jsonTrainingListString))
+	if user == nil {
+		fmt.Println("No user is found")
+	} else {
+		jsonUserString, _ := json.Marshal(*user)
+		fmt.Printf("FindUserByEmail result is: %v\n", string(jsonUserString))
+	}
 }
