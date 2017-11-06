@@ -55,3 +55,29 @@ func FindUserByEmail(email string) (user *models.User, err error) {
 
 	return user, nil
 }
+
+func FindUserByName(name string) (user *models.User, err error) {
+	if len(name) <= 0 {
+		return user, errors.New("Name is null or empty")
+	}
+
+	session, err := util.GetDBSession()
+	if err != nil {
+		panic(err)
+	}
+	defer session.Close()
+
+	c := session.DB("").C("user")
+	var userList []models.User
+	err = c.Find(bson.M{"name": name}).All(&userList)
+	if err != nil {
+		fmt.Println(err)
+		panic(err)
+	}
+
+	if len(userList) > 0 {
+		user = &userList[0]
+	}
+
+	return user, nil
+}

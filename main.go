@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/gin-gonic/gin"
 	"mytraining_backend/config"
 	"mytraining_backend/dao"
 	"mytraining_backend/models"
@@ -122,7 +123,7 @@ func InitializeTraining() {
 func InitializeUser() {
 	var err error
 	var user models.User
-	user.FullName = "Carson,Zhang"
+	user.Name = "carson"
 	user.Email = "myzn007@gmail.com"
 	user.Language = "chinese"
 	user.Password = "123456"
@@ -162,16 +163,24 @@ func main() {
 	//}
 	//jsonTrainingListString, _ := json.Marshal(trainingList)
 
-	var user *models.User
-	user, err = dao.FindUserByEmail("myzn007@gmail.com")
-	if err != nil {
-		fmt.Println(err)
-		panic(err)
-	}
-	if user == nil {
-		fmt.Println("No user is found")
-	} else {
-		jsonUserString, _ := json.Marshal(*user)
-		fmt.Printf("FindUserByEmail result is: %v\n", string(jsonUserString))
-	}
+	r := gin.Default()
+	r.GET("/user/:name", func(c *gin.Context) {
+		userName := c.Params.ByName("name")
+		user, err := dao.FindUserByName(userName)
+		if err != nil {
+			fmt.Println(err)
+			panic(err)
+		}
+		if user == nil {
+			fmt.Println("No user is found")
+			c.JSON(200, gin.H{"user": user, "status": "no value"})
+		} else {
+			jsonUserString, _ := json.Marshal(*user)
+			fmt.Printf("FindUserByName result is: %v\n", string(jsonUserString))
+			c.JSON(200, gin.H{"user": user, "status": "ok"})
+		}
+	})
+	r.Run(":8080")
+	//var user *models.User
+	//user, err = dao.FindUserByEmail("myzn007@gmail.com")
 }
