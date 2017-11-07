@@ -6,12 +6,12 @@ import (
 )
 
 type User struct {
-	Id                     bson.ObjectId `bson:"_id,omitempty"`
-	Name                   string        `bson:"name"`
-	Email                  string        `bson:"email"`
-	Language               string        `bson:"language"`
-	Password               string        `bson:"password"`
-	Birthday               time.Time     `bson:"birthday"`
-	CourseList             []*Training   `bson:"course_list,omitempty"`
-	RecentViewedCourseList []string      `bson:"recent_viewed_course_list"`
+	Id                     bson.ObjectId `bson:"_id,omitempty" json:"id"`
+	Name                   string        `bson:"name" json:"name"`
+	Email                  string        `bson:"email" json:"email"`
+	Language               string        `bson:"language" json:"language"`
+	Password               string        `bson:"password" json:"password"`
+	Birthday               time.Time     `bson:"birthday" json:"birthday"`
+	CourseList             []*Training   `bson:"course_list,omitempty" json:"course_list,omitempty"`
+	RecentViewedCourseList []string      `bson:"recent_viewed_course_list" json:"recent_viewed_course_list"`
 }

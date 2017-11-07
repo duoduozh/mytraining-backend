@@ -26,6 +26,26 @@ func CreateUser(user models.User) error {
 	return nil
 }
 
+func UpdateUser(user models.User) error {
+	if &user == nil {
+		errors.New("parameter null error, param name: user")
+	}
+
+	session, err := util.GetDBSession()
+	if err != nil {
+		fmt.Println(err)
+		panic(nil)
+	}
+	defer session.Close()
+	c := session.DB("").C("user")
+	err = c.Update(bson.M{"_id": user.Id}, user)
+	if err != nil {
+		panic(err)
+	} else {
+		return nil
+	}
+}
+
 func FindUserByEmail(email string) (user models.User, err error) {
 	if len(email) <= 0 {
 		return user, errors.New("Email is null or empty")

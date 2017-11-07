@@ -8,7 +8,7 @@ import (
 	"time"
 )
 
-var dropDatabase bool = true
+var dropDatabase bool = false
 var dbsession *mgo.Session
 
 func InitDB() error {

@@ -1,7 +1,7 @@
 package dao
 
 import (
-	"encoding/json"
+	//	"encoding/json"
 	"fmt"
 	"gopkg.in/mgo.v2/bson"
 	"mytraining_backend/models"
@@ -43,39 +43,45 @@ func DBOperationDemo() error {
 		panic(err)
 	}
 
+	colQuerier := bson.M{"name": "Cla"}
+	err = c.Update(colQuerier, person1)
+	if err != nil {
+		panic(err)
+	}
+
 	// Query One
-	result := models.Person{}
-	err = c.Find(bson.M{"name": "Ale"}).Select(bson.M{"phone": 0}).One(&result)
-	if err != nil {
-		panic(err)
-	}
-	resultstring, _ := json.Marshal(&result)
-	fmt.Printf("Result Person %v\n", string(resultstring))
-
-	// Query All
-	var resultPersonList []models.Person
-	err = c.Find(bson.M{"name": "Ale"}).Sort("-timestamp").All(&resultPersonList)
-	if err != nil {
-		panic(err)
-	}
-	resultstring, _ = json.Marshal(&resultPersonList)
-	fmt.Printf("Result Person List %v\n", string(resultstring))
-
-	// Update
-	colQuerier := bson.M{"name": "Ale"}
-	change := bson.M{"$set": bson.M{"phone": "+86 99 8888 7773", "timestamp": time.Now()}}
-	err = c.Update(colQuerier, change)
-	if err != nil {
-		panic(err)
-	}
-
-	// Query All
-	err = c.Find(bson.M{"name": "Ale"}).Sort("-timestamp").All(&resultPersonList)
-	if err != nil {
-		panic(err)
-	}
-	resultstring, _ = json.Marshal(&resultPersonList)
-	fmt.Printf("Results All: %v\n", string(resultstring))
-
+	//	result := models.Person{}
+	//	err = c.Find(bson.M{"name": "Ale"}).Select(bson.M{"phone": 0}).One(&result)
+	//	if err != nil {
+	//		panic(err)
+	//	}
+	//	resultstring, _ := json.Marshal(&result)
+	//	fmt.Printf("Result Person %v\n", string(resultstring))
+	//
+	//	// Query All
+	//	var resultPersonList []models.Person
+	//	err = c.Find(bson.M{"name": "Ale"}).Sort("-timestamp").All(&resultPersonList)
+	//	if err != nil {
+	//		panic(err)
+	//	}
+	//	resultstring, _ = json.Marshal(&resultPersonList)
+	//	fmt.Printf("Result Person List %v\n", string(resultstring))
+	//
+	//	// Update
+	//	colQuerier := bson.M{"name": "Ale"}
+	//	change := bson.M{"$set": bson.M{"phone": "+86 99 8888 7773", "timestamp": time.Now()}}
+	//	err = c.Update(colQuerier, change)
+	//	if err != nil {
+	//		panic(err)
+	//	}
+	//
+	//	// Query All
+	//	err = c.Find(bson.M{"name": "Ale"}).Sort("-timestamp").All(&resultPersonList)
+	//	if err != nil {
+	//		panic(err)
+	//	}
+	//	resultstring, _ = json.Marshal(&resultPersonList)
+	//	fmt.Printf("Results All: %v\n", string(resultstring))
+	//
 	return nil
 }

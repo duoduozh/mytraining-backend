@@ -147,14 +147,39 @@ func main() {
 		panic(err)
 	}
 	defer util.CloseDB()
-	InitializeData() // This statement is to initialize some data for database testing, need to remove
+
+	//dao.DBOperationDemo()
+
+	//InitializeData() // This statement is to initialize some data for database testing, need to remove
 
 	r := gin.Default()
-	r.GET("/user/:name", FindUserByNameHandler)
-	r.GET("/training/name/:name", FindTrainingByNameHandler)
-	r.GET("/training/tag/:tag", FindTrainingByTagHandler)
-	r.GET("/training/lang/:lang", FindTrainingByLanguageHandler)
+	r.GET("/test/user/:user/psw/:psw", TestHandler)
+	r.GET("/mytraining/api/v1/user/:name", FindUserByNameHandler)
+	r.GET("/mytraining/api/v1/training/name/:name", FindTrainingByNameHandler)
+	r.GET("/mytraining/api/v1/training/tag/:tag", FindTrainingByTagHandler)
+	r.GET("/mytraining/api/v1/training/lang/:lang", FindTrainingByLanguageHandler)
+	r.PUT("/mytraining/api/v1/user", UpdateUserHandler)
 	r.Run(":8080")
+}
+
+func UpdateUserHandler(c *gin.Context) {
+	var user models.User
+	err := c.Bind(&user)
+	if err == nil {
+		jsonUserString, _ := json.Marshal(user)
+		fmt.Printf("Received User Json is: %v\n", string(jsonUserString))
+		dao.UpdateUser(user)
+		c.JSON(200, gin.H{"user": string(jsonUserString), "status": "ok"})
+	} else {
+		c.JSON(400, gin.H{"err": err})
+	}
+}
+
+func TestHandler(c *gin.Context) {
+	user := c.Params.ByName("user")
+	psw := c.Params.ByName("psw")
+	result := fmt.Sprintf("user is %v and psw is %v\n", user, psw)
+	c.JSON(200, gin.H{"status": "ok", "Result": result})
 }
 
 func FindTrainingByLanguageHandler(c *gin.Context) {
