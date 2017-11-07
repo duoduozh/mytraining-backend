@@ -26,7 +26,7 @@ func CreateUser(user models.User) error {
 	return nil
 }
 
-func FindUserByEmail(email string) (user *models.User, err error) {
+func FindUserByEmail(email string) (user models.User, err error) {
 	if len(email) <= 0 {
 		return user, errors.New("Email is null or empty")
 	}
@@ -50,13 +50,13 @@ func FindUserByEmail(email string) (user *models.User, err error) {
 	}
 
 	if len(userList) > 0 {
-		user = &userList[0]
+		user = userList[0]
 	}
 
 	return user, nil
 }
 
-func FindUserByName(name string) (user *models.User, err error) {
+func FindUserByName(name string) (user models.User, err error) {
 	if len(name) <= 0 {
 		return user, errors.New("Name is null or empty")
 	}
@@ -76,7 +76,7 @@ func FindUserByName(name string) (user *models.User, err error) {
 	}
 
 	if len(userList) > 0 {
-		user = &userList[0]
+		user = userList[0]
 	}
 
 	return user, nil

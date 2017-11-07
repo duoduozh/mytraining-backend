@@ -110,9 +110,6 @@ func InitializeTraining() {
 	}
 	training.TagList = []string{"html", "css", "javascript", "web"}
 
-	//resultstring, _ := json.Marshal(training)
-	//fmt.Printf("training is %v\n\n\n\n\n", string(resultstring))
-
 	err = dao.CreateTraining(training)
 	if err != nil {
 		fmt.Println(err)
@@ -130,9 +127,6 @@ func InitializeUser() {
 	user.Birthday = time.Date(1983, time.April, 9, 0, 0, 0, 0, time.UTC)
 	user.RecentViewedCourseList = []string{}
 
-	//resultstring, _ := json.Marshal(training)
-	//fmt.Printf("training is %v\n\n\n\n\n", string(resultstring))
-
 	err = dao.CreateUser(user)
 	if err != nil {
 		fmt.Println(err)
@@ -146,41 +140,87 @@ func InitializeData() {
 }
 
 func main() {
-	// Initialize Environment
+	// Initialize Database Connection
 	config.LoadConfig()
 	err := util.InitDB()
 	if err != nil {
 		panic(err)
 	}
 	defer util.CloseDB()
-	// Insert the training data, will be move to unit test file later.
-	InitializeData()
-	//var trainingList []models.Training
-	//trainingList, err = dao.FindTrainingByLanguage("english")
-	//if err != nil {
-	//	fmt.Println(err)
-	//	panic(err)
-	//}
-	//jsonTrainingListString, _ := json.Marshal(trainingList)
+	InitializeData() // This statement is to initialize some data for database testing, need to remove
 
 	r := gin.Default()
-	r.GET("/user/:name", func(c *gin.Context) {
-		userName := c.Params.ByName("name")
-		user, err := dao.FindUserByName(userName)
-		if err != nil {
-			fmt.Println(err)
-			panic(err)
-		}
-		if user == nil {
-			fmt.Println("No user is found")
-			c.JSON(200, gin.H{"user": user, "status": "no value"})
-		} else {
-			jsonUserString, _ := json.Marshal(*user)
-			fmt.Printf("FindUserByName result is: %v\n", string(jsonUserString))
-			c.JSON(200, gin.H{"user": user, "status": "ok"})
-		}
-	})
+	r.GET("/user/:name", FindUserByNameHandler)
+	r.GET("/training/name/:name", FindTrainingByNameHandler)
+	r.GET("/training/tag/:tag", FindTrainingByTagHandler)
+	r.GET("/training/lang/:lang", FindTrainingByLanguageHandler)
 	r.Run(":8080")
-	//var user *models.User
-	//user, err = dao.FindUserByEmail("myzn007@gmail.com")
+}
+
+func FindTrainingByLanguageHandler(c *gin.Context) {
+	trainingLanguage := c.Params.ByName("lang")
+	training, err := dao.FindTrainingByLanguage(trainingLanguage)
+	if err != nil {
+		fmt.Println(err)
+		panic(err)
+	}
+	if training == nil {
+		fmt.Println("No training is found")
+		c.JSON(200, gin.H{"training": training, "status": "no value"})
+	} else {
+		jsonTrainingString, _ := json.Marshal(training)
+		fmt.Printf("FindTrainingByLanguage success, result is: %v\n", string(jsonTrainingString))
+		c.JSON(200, gin.H{"training": training, "status": "ok"})
+	}
+}
+
+func FindTrainingByTagHandler(c *gin.Context) {
+	trainingTag := c.Params.ByName("tag")
+	training, err := dao.FindTrainingByTag(trainingTag)
+	if err != nil {
+		fmt.Println(err)
+		panic(err)
+	}
+	if training == nil {
+		fmt.Println("No training is found")
+		c.JSON(200, gin.H{"training": training, "status": "no value"})
+	} else {
+		jsonTrainingString, _ := json.Marshal(training)
+		fmt.Printf("FindTrainingByTag success, result is: %v\n", string(jsonTrainingString))
+		c.JSON(200, gin.H{"training": training, "status": "ok"})
+	}
+}
+
+func FindTrainingByNameHandler(c *gin.Context) {
+	trainingName := c.Params.ByName("name")
+	training, err := dao.FindTrainingByName(trainingName)
+	if err != nil {
+		fmt.Println(err)
+		panic(err)
+	}
+	if training == nil {
+		fmt.Println("No training is found")
+		c.JSON(200, gin.H{"training": training, "status": "no value"})
+	} else {
+		jsonTrainingString, _ := json.Marshal(training)
+		fmt.Printf("FindTrainingByName success, result is: %v\n", string(jsonTrainingString))
+		c.JSON(200, gin.H{"training": training, "status": "ok"})
+	}
+}
+
+func FindUserByNameHandler(c *gin.Context) {
+	userName := c.Params.ByName("name")
+	user, err := dao.FindUserByName(userName)
+	if err != nil {
+		fmt.Println(err)
+		panic(err)
+	}
+	if &user == nil {
+		fmt.Println("No user is found")
+		c.JSON(200, gin.H{"user": user, "status": "no value"})
+	} else {
+		jsonUserString, _ := json.Marshal(user)
+		fmt.Printf("FindUserByName result is: %v\n", string(jsonUserString))
+		c.JSON(200, gin.H{"user": user, "status": "ok"})
+	}
 }
