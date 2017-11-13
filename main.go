@@ -6,6 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"mytraining_backend/config"
 	"mytraining_backend/dao"
+	"mytraining_backend/errorhandle"
 	"mytraining_backend/models"
 	"mytraining_backend/util"
 	"time"
@@ -151,8 +152,10 @@ func main() {
 	//dao.DBOperationDemo()
 
 	//InitializeData() // This statement is to initialize some data for database testing, need to remove
-
-	r := gin.Default()
+	//gin.SetMode(gin.ReleaseMode)
+	//r := gin.Default()
+	r := gin.New()
+	r.Use(errorhandle.MyRecovery())
 	r.GET("/test/user/:user/psw/:psw", TestHandler)
 	r.GET("/mytraining/api/v1/user/:name", FindUserByNameHandler)
 	r.GET("/mytraining/api/v1/training/name/:name", FindTrainingByNameHandler)
@@ -171,7 +174,7 @@ func UpdateUserHandler(c *gin.Context) {
 		dao.UpdateUser(user)
 		c.JSON(200, gin.H{"user": string(jsonUserString), "status": "ok"})
 	} else {
-		c.JSON(400, gin.H{"err": err})
+		c.JSON(400, gin.H{"status": "400 Bad Request", "error": err.Error()})
 	}
 }
 
