@@ -1,0 +1,9 @@
+package: mytraining_backend
+import:
+- package: github.com/alioygur/is
+  version: ^1.0.3
+- package: github.com/gin-gonic/gin
+  version: ^1.2.0
+- package: gopkg.in/mgo.v2
+  subpackages:
+  - bson
