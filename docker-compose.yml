@@ -1,0 +1,16 @@
+version: "2.0"
+
+services:
+    web:
+        restart: on-failure
+        build: ./mytraining_backend
+        links: 
+          - mymongo1:mymongo1
+        ports:
+          - "8080:8080"
+
+    mymongo1:
+        restart: on-failure
+        image: mongo:latest
+        expose:
+          - "27017"
