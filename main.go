@@ -9,6 +9,10 @@ import (
 	"mytraining_backend/errorhandle"
 	"mytraining_backend/models"
 	"mytraining_backend/util"
+	"os"
+	"os/signal"
+	"context"
+	"time"
 )
 
 func main() {
@@ -18,15 +22,35 @@ func main() {
     }
 	defer util.CloseDB() // Close DB connection before quit main method
 
-	gin.SetMode(gin.DebugMode)
-	r := gin.New()
-	r.Use(errorhandle.MyRecovery())
-	r.GET(config.API_Prefix + "/user/:name", FindUserByNameHandler)
-    r.PUT(config.API_Prefix + "/user", UpdateUserHandler)
-	r.GET(config.API_Prefix + "/training/name/:name", FindTrainingByNameHandler)
-	r.GET(config.API_Prefix + "/training/tag/:tag", FindTrainingByTagHandler)
-	r.GET(config.API_Prefix + "/training/lang/:lang", FindTrainingByLanguageHandler)
-	r.Run(":8080")
+	go func() {
+		gin.SetMode(gin.DebugMode)
+		r := gin.New()
+		r.Use(errorhandle.MyRecovery())
+		r.GET(config.API_Prefix + "/training/name/:name", FindTrainingByNameHandler)
+		r.GET(config.API_Prefix + "/training/tag/:tag", FindTrainingByTagHandler)
+		r.GET(config.API_Prefix + "/training/lang/:lang", FindTrainingByLanguageHandler)
+		r.Run(":8080")
+	}()
+
+	go func() {
+		gin.SetMode(gin.DebugMode)
+		r := gin.New()
+		r.Use(errorhandle.MyRecovery())
+		r.GET(config.API_Prefix + "/user/:name", FindUserByNameHandler)
+		r.PUT(config.API_Prefix + "/user", UpdateUserHandler)
+		r.Run(":8081")
+	}()
+
+	// Wait for interrupt signal to gracefully shutdown the server with
+	// a timeout of 5 seconds.
+	quit := make(chan os.Signal)
+	signal.Notify(quit, os.Interrupt)
+	<-quit
+	log.Println("Shutdown Server ...")
+
+	_, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+	log.Println("Server exiting")
 }
 
 func FindUserByNameHandler(c *gin.Context) {
