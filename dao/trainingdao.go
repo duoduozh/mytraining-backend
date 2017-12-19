@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"gopkg.in/mgo.v2/bson"
+	log "github.com/sirupsen/logrus"
 	"mytraining_backend/models"
 	"mytraining_backend/util"
 )
@@ -19,6 +20,7 @@ func CreateTraining(training models.Training) error {
 	c := session.DB("").C("training")
 	err = c.Insert(training)
 	if err != nil {
+		log.Error(err)
 		panic(err)
 	}
 
@@ -39,6 +41,7 @@ func FindTrainingByName(name string) (trainingList []models.Training, err error)
 	c := session.DB("").C("training")
 	err = c.Find(bson.M{"name": name}).All(&trainingList)
 	if err != nil {
+		log.Error(err)
 		panic(err)
 	}
 
@@ -52,6 +55,7 @@ func FindTrainingByTag(tag string) (trainingList []models.Training, err error) {
 
 	session, err := util.GetDBSession()
 	if err != nil {
+		log.Error(err)
 		panic(err)
 	}
 	defer session.Close()
@@ -59,6 +63,7 @@ func FindTrainingByTag(tag string) (trainingList []models.Training, err error) {
 	c := session.DB("").C("training")
 	err = c.Find(bson.M{"tag_list": tag}).All(&trainingList)
 	if err != nil {
+		log.Error(err)
 		panic(err)
 	}
 
@@ -72,6 +77,7 @@ func FindTrainingByLanguage(language string) (trainingList []models.Training, er
 
 	session, err := util.GetDBSession()
 	if err != nil {
+		log.Error(err)
 		panic(err)
 	}
 	defer session.Close()
@@ -79,6 +85,7 @@ func FindTrainingByLanguage(language string) (trainingList []models.Training, er
 	c := session.DB("").C("training")
 	err = c.Find(bson.M{"language": bson.M{"$regex": bson.RegEx{language, "i"}}}).All(&trainingList)
 	if err != nil {
+		log.Error(err)
 		panic(err)
 	}
 

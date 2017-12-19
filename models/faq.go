@@ -5,6 +5,6 @@ import (
 )
 
 type FAQ struct {
-	Question string `bson:"question"`
-	Answer   string `bson:"answer"`
+	Question string `bson:"question" json:"question"`
+	Answer   string `bson:"answer" json:"answer"`
 }

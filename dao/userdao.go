@@ -2,8 +2,8 @@ package dao
 
 import (
 	"errors"
-	"fmt"
 	"github.com/alioygur/is"
+	log "github.com/sirupsen/logrus"
 	"gopkg.in/mgo.v2/bson"
 	"mytraining_backend/models"
 	"mytraining_backend/util"
@@ -12,7 +12,7 @@ import (
 func CreateUser(user models.User) error {
 	session, err := util.GetDBSession()
 	if err != nil {
-		fmt.Println(err)
+		log.Error(err)
 		panic(nil)
 	}
 	defer session.Close()
@@ -20,6 +20,7 @@ func CreateUser(user models.User) error {
 	c := session.DB("").C("user")
 	err = c.Insert(user)
 	if err != nil {
+		log.Error(err)
 		panic(err)
 	}
 
@@ -33,13 +34,14 @@ func UpdateUser(user models.User) error {
 
 	session, err := util.GetDBSession()
 	if err != nil {
-		fmt.Println(err)
+		log.Error(err)
 		panic(nil)
 	}
 	defer session.Close()
 	c := session.DB("").C("user")
 	err = c.Update(bson.M{"_id": user.Id}, user)
 	if err != nil {
+		log.Error(err)
 		panic(err)
 	} else {
 		return nil
@@ -57,6 +59,7 @@ func FindUserByEmail(email string) (user models.User, err error) {
 
 	session, err := util.GetDBSession()
 	if err != nil {
+		log.Error(err)
 		panic(err)
 	}
 	defer session.Close()
@@ -65,7 +68,7 @@ func FindUserByEmail(email string) (user models.User, err error) {
 	var userList []models.User
 	err = c.Find(bson.M{"email": email}).All(&userList)
 	if err != nil {
-		fmt.Println(err)
+		log.Error(err)
 		panic(err)
 	}
 
@@ -83,6 +86,7 @@ func FindUserByName(name string) (user models.User, err error) {
 
 	session, err := util.GetDBSession()
 	if err != nil {
+        log.Error(err)
 		panic(err)
 	}
 	defer session.Close()
@@ -91,7 +95,7 @@ func FindUserByName(name string) (user models.User, err error) {
 	var userList []models.User
 	err = c.Find(bson.M{"name": name}).All(&userList)
 	if err != nil {
-		fmt.Println(err)
+        log.Error(err)
 		panic(err)
 	}
 

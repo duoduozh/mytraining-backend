@@ -5,14 +5,14 @@ import (
 )
 
 type Module struct {
-	Id          bson.ObjectId `bson:"_id,omitempty"`
-	Week        int           `bson:"week"`
-	Module      string        `bson:"module"`
-	Title       string        `bson:"title"`
-	Description string        `bson:"description"`
-	Video       int           `bson:"video"`
-	Reading     int           `bson:"reading"`
-	Practice    int           `bson:"practice"`
-	Duration    int           `bson:"duration"`
-	Grade       int           `bson:"grade"`
+	Id          bson.ObjectId `bson:"_id,omitempty" json:"id"`
+	Week        int           `bson:"week" json:"week"`
+	Module      string        `bson:"module" json:"module"`
+	Title       string        `bson:"title" json:"title"`
+	Description string        `bson:"description" json:"description"`
+	Video       int           `bson:"video" json:"video"`
+	Reading     int           `bson:"reading" json:"reading"`
+	Practice    int           `bson:"practice" json:"practice"`
+	Duration    int           `bson:"duration" json:"duration"`
+	Grade       int           `bson:"grade" json:"grade"`
 }
