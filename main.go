@@ -1,9 +1,10 @@
 package main
 
 import (
+	"context"
 	"encoding/json"
 	"github.com/gin-gonic/gin"
-    log "github.com/sirupsen/logrus"
+	log "github.com/sirupsen/logrus"
 	"mytraining_backend/config"
 	"mytraining_backend/dao"
 	"mytraining_backend/errorhandle"
@@ -11,24 +12,23 @@ import (
 	"mytraining_backend/util"
 	"os"
 	"os/signal"
-	"context"
 	"time"
 )
 
 func main() {
 	err := util.InitializeEnvironment()
-    if err != nil {
-        panic(err)
-    }
+	if err != nil {
+		panic(err)
+	}
 	defer util.CloseDB() // Close DB connection before quit main method
 
 	go func() {
 		gin.SetMode(gin.DebugMode)
 		r := gin.New()
 		r.Use(errorhandle.MyRecovery())
-		r.GET(config.API_Prefix + "/training/name/:name", FindTrainingByNameHandler)
-		r.GET(config.API_Prefix + "/training/tag/:tag", FindTrainingByTagHandler)
-		r.GET(config.API_Prefix + "/training/lang/:lang", FindTrainingByLanguageHandler)
+		r.GET(config.API_Prefix+"/training/name/:name", FindTrainingByNameHandler)
+		r.GET(config.API_Prefix+"/training/tag/:tag", FindTrainingByTagHandler)
+		r.GET(config.API_Prefix+"/training/lang/:lang", FindTrainingByLanguageHandler)
 		r.Run(":8080")
 	}()
 
@@ -36,8 +36,8 @@ func main() {
 		gin.SetMode(gin.DebugMode)
 		r := gin.New()
 		r.Use(errorhandle.MyRecovery())
-		r.GET(config.API_Prefix + "/user/:name", FindUserByNameHandler)
-		r.PUT(config.API_Prefix + "/user", UpdateUserHandler)
+		r.GET(config.API_Prefix+"/user/:name", FindUserByNameHandler)
+		r.PUT(config.API_Prefix+"/user", UpdateUserHandler)
 		r.Run(":8081")
 	}()
 
@@ -61,11 +61,11 @@ func FindUserByNameHandler(c *gin.Context) {
 		panic(err)
 	}
 	if &user == nil {
-        log.Info("No user is found with name %v", userName)
+		log.Info("No user is found with name %v", userName)
 		c.JSON(200, gin.H{"user": user, "status": "no value"})
 	} else {
 		jsonUserString, _ := json.Marshal(user)
-        log.Infof("FindUserByName result is: %v\n", string(jsonUserString))
+		log.Infof("FindUserByName result is: %v\n", string(jsonUserString))
 		c.JSON(200, gin.H{"user": user, "status": "ok"})
 	}
 }
@@ -75,7 +75,7 @@ func UpdateUserHandler(c *gin.Context) {
 	err := c.Bind(&user)
 	if err == nil {
 		jsonUserString, _ := json.Marshal(user)
-        log.Infof("Received User Json is: %v\n", string(jsonUserString))
+		log.Infof("Received User Json is: %v\n", string(jsonUserString))
 		dao.UpdateUser(user)
 		c.JSON(200, gin.H{"user": string(jsonUserString), "status": "ok"})
 	} else {
@@ -87,7 +87,7 @@ func FindTrainingByLanguageHandler(c *gin.Context) {
 	trainingLanguage := c.Params.ByName("lang")
 	training, err := dao.FindTrainingByLanguage(trainingLanguage)
 	if err != nil {
-        log.Error(err)
+		log.Error(err)
 		panic(err)
 	}
 	if training == nil {
